@@ -284,18 +284,23 @@ def start_process():
 # ウィンドウを作成
 main = tkinter.Tk()
 main.title("動画分割")
-# 画面サイズを取得（タスクバーを除く）
-user32 = ctypes.windll.user32
-# 画面の横幅
-screen_width = user32.GetSystemMetrics(0)
-# 画面の縦幅（タスクバー含む）
-screen_height = user32.GetSystemMetrics(1)
-# タスクバーの高さ
-taskbar_height = user32.GetSystemMetrics(4)
-# タスクバーを考慮したウィンドウサイズを設定
-app_width = int(screen_width * 0.5)
-app_height = int((screen_height - taskbar_height) * 0.5)
-main.geometry(f"{app_width}x{app_height}")
+try:
+    # 画面サイズを取得（タスクバーを除く）
+    user32 = ctypes.windll.user32
+    # 画面の横幅
+    screen_width = user32.GetSystemMetrics(0)
+    # 画面の縦幅（タスクバー含む）
+    screen_height = user32.GetSystemMetrics(1)
+    # タスクバーの高さ
+    taskbar_height = user32.GetSystemMetrics(4)
+    # タスクバーを考慮したウィンドウサイズを設定
+    app_width = int(screen_width * 0.5)
+    app_height = int((screen_height - taskbar_height) * 0.5)
+    main.geometry(f"{app_width}x{app_height}")
+except:
+    app_width = 1200
+    app_height = 1000
+    main.geometry(str(1200) + "x" + str(1000))
 #ウィンドウサイズを絶対的に指定する場合はこれを使う
 #main.geometry(str(WIDTH) + "x" + str(HEIGHT))
 # ウィンドウサイズの変更を禁止
